@@ -1,13 +1,26 @@
 type Vote {
-  id: String
+  itemId: String
   vote: String
+  username: String
   createdOn: String
 }
 
 input VoteInput {
-  id: String
-  vote: String
-  username: String
+  itemId: String!
+  vote: String!
+  username: String!
+}
+
+input ExplanationInput {
+  itemId: String!
+  explanation: String!
+  username: String!
+}
+
+input CategorizationInput {
+  itemId: String!
+  category: String!
+  username: String!
 }
 
 type Query {
@@ -16,4 +29,6 @@ type Query {
 
 type Mutation {
   createVotes(votes: [VoteInput]): Boolean!
+  createExplanations(explanations: [ExplanationInput]): Boolean!
+  createCategorizations(categorizations: [CategorizationInput]): Boolean!
 }

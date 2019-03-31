@@ -1,82 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
-import VoteCard from "../../components/VoteCard";
-import { Progress } from "antd";
+import React, { useState } from "react";
+import VoteCard from "./VoteCard";
 import { withRouter } from "react-router-dom";
-import { LOBBY } from "../../router/pages";
+import { EXPLAIN } from "../../router/pages";
 import { compose, graphql } from "react-apollo";
 import gql from "graphql-tag";
+import ProgressBar from "../../components/ProgressBar";
+import ProgressSteps from "../../components/ProgressSteps";
 
 const items = [{ id: 1, text: "hello" }, { id: 2, text: "goodbye" }];
 
-const ROUND_TIME_LIMIT = 3 * 1000;
-const formatFn = percent =>
-  `${Math.round(
-    (ROUND_TIME_LIMIT * (percent / 100)) / 1000
-  )} seconds remaining`;
-
-const startTime = Date.now();
-const endTime = startTime + ROUND_TIME_LIMIT;
-
-const useInterval = (callback, delay) => {
-  const savedCallback = useRef();
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-};
-
-const isRunning = percent => percent > 0;
-let hasFinished = false;
-
 const Vote = ({ mutate, history }) => {
-  const [timeRemainingPercent, setTimeRemainingPercent] = useState(100);
   const [votes, setVote] = useState({});
 
-  useInterval(
-    () => {
-      setTimeRemainingPercent(
-        ((endTime - Date.now()) / ROUND_TIME_LIMIT) * 100
-      );
-    },
-    isRunning(timeRemainingPercent) ? 1000 : null
-  );
+  const onComplete = () => {
+    if (Object.keys(votes).length) {
+      const voteRequest = Object.keys(votes).map(itemId => ({
+        ...votes[itemId],
+        itemId,
+        username: "aaron"
+      }));
 
-  if (!isRunning(timeRemainingPercent) && !hasFinished) {
-    hasFinished = true;
+      mutate({
+        variables: { votes: voteRequest }
+      });
+    }
 
-    const voteRequest = Object.keys(votes).map(id => ({
-      ...votes[id],
-      id,
-      username: "aaron"
-    }));
-
-    mutate({
-      variables: { votes: voteRequest }
-    });
-
-    history.push(LOBBY.path);
-  }
+    history.push(EXPLAIN.path);
+  };
 
   return (
     <div>
-      <div style={{ width: 200 }}>
-        <Progress
-          default="small"
-          percent={timeRemainingPercent}
-          size="small"
-          format={formatFn}
-        />
-      </div>
+      <ProgressSteps current={0} />
+      <ProgressBar onComplete={onComplete} />
 
       {items.map(data => (
         <VoteCard

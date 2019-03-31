@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const VoteSchema = new mongoose.Schema({
+const ExplanationSchema = new mongoose.Schema({
   itemId: {
-    type: Number,
+    type: String,
     required: true
   },
-  vote: {
+  explanation: {
     type: String,
     required: true
   },
@@ -19,4 +19,4 @@ const VoteSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model("Vote", VoteSchema);
+export default mongoose.model("Explanation", ExplanationSchema);

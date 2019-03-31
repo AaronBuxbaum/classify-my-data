@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const VoteSchema = new mongoose.Schema({
+const CategorizationSchema = new mongoose.Schema({
   itemId: {
     type: Number,
     required: true
   },
-  vote: {
+  category: {
     type: String,
     required: true
   },
@@ -19,4 +19,4 @@ const VoteSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model("Vote", VoteSchema);
+export default mongoose.model("Categorization", CategorizationSchema);

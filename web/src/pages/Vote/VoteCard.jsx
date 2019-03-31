@@ -1,13 +1,11 @@
 import React from "react";
 import { Card, Select } from "antd";
-import ItemContents from "./ItemContents";
 
 const Option = Select.Option;
 
 const VoteCard = ({ data, onSelect }) => {
   return (
-    <Card style={{ width: 300, marginBottom: 15 }}>
-      <ItemContents data={data} />
+    <Card title={data.text} style={{ width: 300, marginBottom: 15 }}>
       <Select onChange={onSelect} style={{ width: 150 }}>
         <Option value="negative">Negative</Option>
         <Option value="neutral">Neutral</Option>
