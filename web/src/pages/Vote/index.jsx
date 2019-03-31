@@ -3,6 +3,8 @@ import VoteCard from "../../components/VoteCard";
 import { Progress } from "antd";
 import { withRouter } from "react-router-dom";
 import { LOBBY } from "../../router/pages";
+import { compose, graphql } from "react-apollo";
+import gql from "graphql-tag";
 
 const items = [{ id: 1, text: "hello" }, { id: 2, text: "goodbye" }];
 
@@ -36,11 +38,7 @@ const useInterval = (callback, delay) => {
 const isRunning = percent => percent > 0;
 let hasFinished = false;
 
-const sendVotesToServer = votes => {
-  console.log(votes);
-};
-
-const Vote = ({ history }) => {
+const Vote = ({ mutate, history }) => {
   const [timeRemainingPercent, setTimeRemainingPercent] = useState(100);
   const [votes, setVote] = useState({});
 
@@ -55,8 +53,10 @@ const Vote = ({ history }) => {
 
   if (!isRunning(timeRemainingPercent) && !hasFinished) {
     hasFinished = true;
-    sendVotesToServer(votes);
-    history.push(LOBBY.path);
+    mutate({
+      variables: { title: "testinggggg" }
+    });
+    // history.push(LOBBY.path);
   }
 
   return (
@@ -81,4 +81,10 @@ const Vote = ({ history }) => {
   );
 };
 
-export default withRouter(Vote);
+const createVote = gql`
+  mutation createVote($title: String) {
+    createVote(title: $title)
+  }
+`;
+
+export default compose(graphql(createVote))(Vote);

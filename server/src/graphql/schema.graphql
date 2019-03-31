@@ -1,0 +1,13 @@
+type Query {
+  votes: [Vote!]!
+}
+
+type Mutation {
+  createVote(title: String): Boolean!
+}
+
+type Vote {
+  id: String
+  value: String
+  createdOn: String
+}
