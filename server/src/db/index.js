@@ -5,7 +5,7 @@ import Vote from "./vote";
 
 mongoose.Promise = global.Promise;
 
-export const startDB = ({ user, pwd, url, db }) =>
+export const startDB = ({ url, db }) =>
   mongoose.connect(`mongodb://${url}/${db}`);
 
 export const models = {

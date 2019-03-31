@@ -6,7 +6,7 @@ import ProgressSteps from "../../components/ProgressSteps";
 import { CATEGORIZE } from "../../router/pages";
 import gql from "graphql-tag";
 import { compose, graphql } from "react-apollo";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 
 const items = [
   { id: 1, text: "hello", vote: "positive" },

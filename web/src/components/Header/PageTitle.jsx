@@ -5,13 +5,13 @@ import { withRouter } from "react-router-dom";
 import { Typography } from "antd";
 import pages from "../../router/pages";
 
-const { Title } = Typography;
-
 const mapTitle = ({ location }) => ({
   title: get(pages, [location.pathname, "title"])
 });
 
-const PageTitle = ({ title }) => <Title level={2}>{title}</Title>;
+const PageTitle = ({ title }) => (
+  <Typography.Title level={2}>{title}</Typography.Title>
+);
 
 export default compose(
   withRouter,

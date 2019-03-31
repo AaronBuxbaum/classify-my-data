@@ -4,7 +4,7 @@ import resolvers from "./graphql/resolvers";
 
 const db = startDB({
   db: "testing",
-  url: "localhost:27017"
+  url: "database:27017"
 });
 
 const context = {
@@ -23,5 +23,5 @@ const options = {
 };
 
 Server.start(options, () => {
-  console.log(`Server is running on http://localhost:${options.port}`);
+  console.log(`Server is running on http://database:${options.port}`);
 });

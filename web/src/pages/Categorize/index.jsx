@@ -5,7 +5,7 @@ import ProgressBar from "../../components/ProgressBar";
 import ProgressSteps from "../../components/ProgressSteps";
 import gql from "graphql-tag";
 import { compose, graphql } from "react-apollo";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import { HOME } from "../../router/pages";
 
 const items = [
