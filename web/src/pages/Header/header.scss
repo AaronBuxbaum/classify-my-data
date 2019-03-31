@@ -1,0 +1,18 @@
+.avatar {
+    background-color: olive;
+    border-radius: 100%;
+    cursor: pointer;
+    height: 42px;
+    object-fit: cover;
+    width: 42px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.username {
+    margin-right: 16px;
+}

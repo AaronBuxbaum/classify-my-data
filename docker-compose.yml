@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  database:
+    image: mongo:4.0
+    environment:
+      - MONGO_INITDB_DATABASE=testing
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+  server:
+    build: server
+    ports:
+      - 4000:4000
+      - 9229:9229
+    volumes:
+      - ./server:/app
+  web:
+    build: web
+    ports:
+      - 3000:3000
+      - 9222:9222
+    volumes:
+      - ./web/src:/app/src
