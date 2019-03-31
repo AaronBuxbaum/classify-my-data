@@ -2,9 +2,10 @@ export default {
   Query: {
     votes: async (parent, args, { models }) => {
       // await models.Vote.deleteMany({});
-      const Votes = await models.Vote.find({});
-      console.log(Votes);
-      return Votes;
+      return await models.Vote.find({});
+    },
+    explanations: async (parent, args, { models }) => {
+      return await models.Explanation.find({});
     }
   },
   Mutation: {

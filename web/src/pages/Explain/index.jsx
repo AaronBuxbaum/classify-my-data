@@ -51,8 +51,11 @@ const Explain = ({ mutate, history }) => {
         <ExplainCard
           key={data.id}
           data={data}
-          onChange={explanation =>
-            setExplanations({ ...explanations, [data.id]: { explanation } })
+          onChange={e =>
+            setExplanations({
+              ...explanations,
+              [data.id]: { explanation: e.target.value }
+            })
           }
         />
       ))}

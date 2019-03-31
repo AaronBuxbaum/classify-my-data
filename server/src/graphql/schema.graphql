@@ -5,6 +5,13 @@ type Vote {
   createdOn: String
 }
 
+type Explanation {
+  itemId: String
+  explanation: String
+  username: String
+  createdOn: String
+}
+
 input VoteInput {
   itemId: String!
   vote: String!
@@ -25,6 +32,7 @@ input CategorizationInput {
 
 type Query {
   votes: [Vote!]!
+  explanations: [Explanation!]!
 }
 
 type Mutation {
