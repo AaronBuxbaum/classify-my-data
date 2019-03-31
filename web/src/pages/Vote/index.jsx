@@ -53,10 +53,18 @@ const Vote = ({ mutate, history }) => {
 
   if (!isRunning(timeRemainingPercent) && !hasFinished) {
     hasFinished = true;
+
+    const voteRequest = Object.keys(votes).map(id => ({
+      ...votes[id],
+      id,
+      username: "aaron"
+    }));
+
     mutate({
-      variables: { title: "testinggggg" }
+      variables: { votes: voteRequest }
     });
-    // history.push(LOBBY.path);
+
+    history.push(LOBBY.path);
   }
 
   return (
@@ -74,7 +82,7 @@ const Vote = ({ mutate, history }) => {
         <VoteCard
           key={data.id}
           data={data}
-          onSelect={vote => setVote({ ...votes, [data.id]: vote })}
+          onSelect={vote => setVote({ ...votes, [data.id]: { vote } })}
         />
       ))}
     </div>
@@ -82,9 +90,12 @@ const Vote = ({ mutate, history }) => {
 };
 
 const createVote = gql`
-  mutation createVote($title: String) {
-    createVote(title: $title)
+  mutation createVote($votes: [VoteInput]) {
+    createVotes(votes: $votes)
   }
 `;
 
-export default compose(graphql(createVote))(Vote);
+export default compose(
+  withRouter,
+  graphql(createVote)
+)(Vote);

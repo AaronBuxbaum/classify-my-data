@@ -1,29 +1,17 @@
 export default {
   Query: {
     votes: async (parent, args, { models }) => {
-      const Posts = await models.Vote.find({});
-      console.log(Posts);
-      return Posts;
+      const Votes = await models.Vote.find({});
+      console.log(Votes);
+      return Votes;
     }
   },
   Mutation: {
-    createVote: async (parent, { title }, { models }) => {
-      const Vote = await models.Vote.findOne({ title });
-
-      if (Vote) {
-        throw new Error("Please provide a unique title.");
-      }
-
-      // create a new post
-      const newVote = new models.Vote({
-        value: "testing"
-      });
-
-      // save the post
+    createVotes: async (parent, { votes }, { models }) => {
       try {
-        await newVote.save();
+        await models.Vote.collection.insertMany(votes, { ordered: false });
       } catch (e) {
-        throw new Error("Cannot Save Post!!!");
+        throw new Error("Cannot save vote");
       }
 
       return true;

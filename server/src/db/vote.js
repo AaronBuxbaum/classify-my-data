@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const VoteSchema = new mongoose.Schema({
-  value: {
+  id: {
+    type: Number,
+    required: true
+  },
+  vote: {
     type: String,
     required: true
   },
