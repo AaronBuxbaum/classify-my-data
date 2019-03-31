@@ -6,6 +6,9 @@ export default {
     },
     explanations: async (parent, args, { models }) => {
       return await models.Explanation.find({});
+    },
+    categorizations: async (parent, args, { models }) => {
+      return await models.Categorization.find({});
     }
   },
   Mutation: {
