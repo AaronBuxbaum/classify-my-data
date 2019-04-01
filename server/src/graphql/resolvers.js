@@ -9,6 +9,9 @@ export default {
     },
     categorizations: async (parent, args, { models }) => {
       return await models.Categorization.find({});
+    },
+    classificationItems: async (parent, args, { models }) => {
+      return await models.ClassificationItem.find({});
     }
   },
   Mutation: {
@@ -39,6 +42,17 @@ export default {
         });
       } catch (e) {
         throw new Error("Cannot save categorization");
+      }
+
+      return true;
+    },
+    createClassificationItem: async (parent, { text }, { models }) => {
+      try {
+        await models.ClassificationItem.collection.insertOne({
+          text
+        });
+      } catch (e) {
+        throw new Error("Cannot save classification item");
       }
 
       return true;

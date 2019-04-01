@@ -1,3 +1,9 @@
+type ClassificationItem {
+  id: String
+  text: String
+  createdOn: String
+}
+
 type Vote {
   itemId: String
   vote: String
@@ -41,10 +47,12 @@ type Query {
   votes: [Vote!]!
   explanations: [Explanation!]!
   categorizations: [Categorization!]!
+  classificationItems: [ClassificationItem!]!
 }
 
 type Mutation {
   createVotes(votes: [VoteInput]): Boolean!
   createExplanations(explanations: [ExplanationInput]): Boolean!
   createCategorizations(categorizations: [CategorizationInput]): Boolean!
+  createClassificationItem(text: String!): Boolean!
 }

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Categorization from "./categorization";
+import ClassificationItem from "./classificationItem";
 import Explanation from "./explanation";
 import Vote from "./vote";
 
@@ -10,6 +11,7 @@ export const startDB = ({ url, db }) =>
 
 export const models = {
   Categorization,
+  ClassificationItem,
   Explanation,
   Vote
 };

@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import VoteCard from "./VoteCard";
 import { withRouter } from "react-router-dom";
 import { EXPLAIN } from "../../router/pages";
-import { compose, graphql } from "react-apollo";
+import { compose, graphql, Query } from "react-apollo";
 import gql from "graphql-tag";
 import ProgressBar from "../../components/ProgressBar";
 import ProgressSteps from "../../components/ProgressSteps";
 
-const items = [{ id: 1, text: "hello" }, { id: 2, text: "goodbye" }];
+const GET_ITEMS = gql`
+  {
+    classificationItems {
+      id
+      text
+    }
+  }
+`;
 
 const Vote = ({ mutate, history }) => {
   const [votes, setVote] = useState({});
@@ -29,18 +36,28 @@ const Vote = ({ mutate, history }) => {
   };
 
   return (
-    <div>
-      <ProgressSteps current={0} />
-      <ProgressBar onComplete={onComplete} />
+    <Query query={GET_ITEMS}>
+      {({ loading, error, data }) => {
+        if (loading || error) {
+          return null;
+        }
 
-      {items.map(data => (
-        <VoteCard
-          key={data.id}
-          data={data}
-          onSelect={vote => setVote({ ...votes, [data.id]: { vote } })}
-        />
-      ))}
-    </div>
+        return (
+          <div>
+            <ProgressSteps current={0} />
+            <ProgressBar onComplete={onComplete} />
+
+            {data.classificationItems.map(item => (
+              <VoteCard
+                key={item.id}
+                data={item}
+                onSelect={vote => setVote({ ...votes, [item.id]: { vote } })}
+              />
+            ))}
+          </div>
+        );
+      }}
+    </Query>
   );
 };
 
