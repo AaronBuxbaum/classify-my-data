@@ -16,6 +16,12 @@ const GET_ITEMS = gql`
   }
 `;
 
+const CREATE_VOTE = gql`
+  mutation createVote($votes: [VoteInput]) {
+    createVotes(votes: $votes)
+  }
+`;
+
 const Vote = ({ mutate, history }) => {
   const [votes, setVote] = useState({});
 
@@ -61,13 +67,7 @@ const Vote = ({ mutate, history }) => {
   );
 };
 
-const createVote = gql`
-  mutation createVote($votes: [VoteInput]) {
-    createVotes(votes: $votes)
-  }
-`;
-
 export default compose(
   withRouter,
-  graphql(createVote)
+  graphql(CREATE_VOTE)
 )(Vote);

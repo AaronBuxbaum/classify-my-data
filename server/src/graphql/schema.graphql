@@ -6,6 +6,7 @@ type ClassificationItem {
 
 type Vote {
   itemId: String
+  text: String
   vote: String
   username: String
   createdOn: String
@@ -48,6 +49,7 @@ type Query {
   explanations: [Explanation!]!
   categorizations: [Categorization!]!
   classificationItems: [ClassificationItem!]!
+  userVotesThatNeedExplanations: [Vote!]!
 }
 
 type Mutation {

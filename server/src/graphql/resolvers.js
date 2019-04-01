@@ -7,6 +7,25 @@ export default {
     explanations: async (parent, args, { models }) => {
       return await models.Explanation.find({});
     },
+    userVotesThatNeedExplanations: async (parent, args, { models }) => {
+      const votes = await models.Vote.find({});
+      const differingVotes = {};
+      votes.forEach(vote => {
+        if (!differingVotes[vote.itemId]) {
+          differingVotes[vote.itemId] = {
+            itemId: vote.itemId,
+            vote: vote.vote,
+            differingVotes: 0
+          };
+        } else if (differingVotes[vote.itemId].vote !== vote.vote) {
+          differingVotes[vote.itemId].differingVotes++;
+        }
+      });
+      const differingIds = Object.values(differingVotes)
+        .filter(vote => vote.differingVotes > 1)
+        .map(({ itemId }) => itemId);
+      return votes.filter(vote => differingIds.includes(vote.itemId));
+    },
     categorizations: async (parent, args, { models }) => {
       return await models.Categorization.find({});
     },
