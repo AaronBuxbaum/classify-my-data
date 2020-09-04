@@ -14,7 +14,7 @@
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "lodash": "^4.17.11",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.13.1",
     "react": "^16.8.6",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.8.6",
