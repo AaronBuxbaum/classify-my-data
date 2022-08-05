@@ -2,7 +2,7 @@
   "dependencies": {
     "graphql-tag": "^2.10.1",
     "graphql-yoga": "^1.17.4",
-    "mongoose": "^5.4.20"
+    "mongoose": "^5.7.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
